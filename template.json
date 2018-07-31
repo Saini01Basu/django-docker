@@ -1,0 +1,107 @@
+{
+  "AWSTemplateFormatVersion":"2010-09-09",
+  "Parameters":{
+    "KeyName":{
+      "Type":"AWS::EC2::KeyPair::KeyName",
+      "Description":"Name of an existing EC2 KeyPair to enable SSH access to the ECS instances."
+    },
+    "VpcId":{
+      "Type":"AWS::EC2::VPC::Id",
+      "Description":"Select a VPC that allows instances to access the Internet."
+    },
+    "SubnetId":{
+      "Type":"List<AWS::EC2::Subnet::Id>",
+      "Description":"Select at two subnets in your selected VPC."
+    },
+    "DesiredCapacity":{
+      "Type":"Number",
+      "Default":"1",
+      "Description":"Number of instances to launch in your ECS cluster."
+    },
+    "MaxSize":{
+      "Type":"Number",
+      "Default":"1",
+      "Description":"Maximum number of instances that can be launched in your ECS cluster."
+    },
+    "InstanceType":{
+      "Description":"EC2 instance type",
+      "Type":"String",
+      "Default":"t2.micro",
+      "AllowedValues":[
+        "t2.micro"
+      ],
+      "ConstraintDescription":"Please choose a valid instance type."
+    }
+  },
+  "Mappings":{
+    "AWSRegionToAMI":{
+      "us-east-1":{
+        "AMIID":"ami-5253c32d"
+      }
+    }
+  },
+  "Resources":{
+    "ECSCluster":{
+      "Type":"AWS::ECS::Cluster"
+    },
+    "taskdefinition":{
+      "Type":"AWS::ECS::TaskDefinition",
+      "Properties":{
+        "Family":{
+          "Fn::Join":[
+            "",
+            [
+              {
+                "Ref":"AWS::StackName"
+              },
+              "move-ecs"
+            ]
+          ]
+        },
+        "ContainerDefinitions":[
+          {
+            "Name":"move-container",
+            "Cpu":"10",
+            "Essential":"true",
+            "Image":"move-repo:latest",
+            "Memory":"300",
+            "PortMappings":[
+              {
+                "ContainerPort":8000
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "service":{
+      "Type":"AWS::ECS::Service",
+      "Properties":{
+        "Cluster":{
+          "Ref":"ECSCluster"
+        },
+        "DesiredCount":"1",
+        "TaskDefinition":{
+          "Ref":"taskdefinition"
+        }
+      }
+    }
+  },
+  "Outputs":{
+    "ecsservice":{
+      "Value":{
+        "Ref":"service"
+      }
+    },
+    "ecscluster":{
+      "Value":{
+        "Ref":"ECSCluster"
+      }
+    },
+    "taskdef":{
+      "Value":{
+        "Ref":"taskdefinition"
+      }
+    }
+  }
+}
