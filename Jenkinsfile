@@ -6,7 +6,7 @@ node {
     sh "aws configure set aws_access_key_id AKIAJHW5AOR5G22NH2AQ"
     sh "aws configure set aws_secret_access_key 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"
     sh "aws configure set default.region us-east-1"
-    sh "aws cloudformation deploy --template-file template.json --stack-name moveStack --parameter-overrides DesiredCapacity=1 InstanceType=t2.micro KeyName=saini MaxSize=1 SubnetId=subnet-0c995c77750f1a898,subnet-0156d2677c8e96a27 VpcId=vpc-007fc05093485e7e6"
+    sh "aws cloudformation update-stack --template-file template.json --stack-name moveStack --parameter-overrides DesiredCapacity=1 InstanceType=t2.micro KeyName=saini MaxSize=1 SubnetId=subnet-0c995c77750f1a898,subnet-0156d2677c8e96a27 VpcId=vpc-007fc05093485e7e6"
  
   stage 'Docker build'
     docker.withRegistry('https://088072595747.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:ecr-credentials') {
