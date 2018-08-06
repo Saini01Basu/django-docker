@@ -8,7 +8,12 @@ node {
       sh "aws configure set aws_secret_access_key ${env.AWS_SECRET_ACCESS_KEY}"
       sh "aws configure set default.region us-east-1"
     }
-    sh "aws cloudformation update-stack --template-body file://template.json --stack-name moveStack --parameter ParameterKey=DesiredCapacity,ParameterValue=1 ParameterKey=InstanceType,ParameterValue=t2.micro ParameterKey=KeyName,ParameterValue=saini ParameterKey=MaxSize,ParameterValue=1"
+    try {
+      sh "aws cloudformation update-stack --template-body file://template.json --stack-name moveStack --parameter ParameterKey=DesiredCapacity,ParameterValue=1 ParameterKey=InstanceType,ParameterValue=t2.micro ParameterKey=KeyName,ParameterValue=saini ParameterKey=MaxSize,ParameterValue=1"
+    }
+    catch(ValidationError e){
+      echo "no updates to apply"
+    }
  
   stage 'Docker build'
     docker.withRegistry('https://088072595747.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:ecr-credentials') {
