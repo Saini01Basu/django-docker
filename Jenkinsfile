@@ -3,10 +3,12 @@ node {
     git 'https://github.com/Saini01Basu/django-docker.git'
   
   stage 'Cloudformation'
-    sh "aws configure set aws_access_key_id ${aws_credentials}.AWS_ACCESS_KEY_ID"
-    sh "aws configure set aws_secret_access_key ${aws_credentials}.AWS_SECRET_ACCESS_KEY"
-    sh "aws configure set default.region us-east-1"
-   sh "aws cloudformation update-stack --template-body file://template.json --stack-name moveStack --parameter ParameterKey=DesiredCapacity,ParameterValue=1 ParameterKey=InstanceType,ParameterValue=t2.micro ParameterKey=KeyName,ParameterValue=saini ParameterKey=MaxSize,ParameterValue=1"
+    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'default_cred', variable: 'AWS_ACCESS_KEY_ID']]) {
+      sh "aws configure set aws_access_key_id ${env.AWS_ACCESS_KEY_ID}"
+      sh "aws configure set aws_secret_access_key ${env.AWS_SECRET_ACCESS_KEY}"
+      sh "aws configure set default.region us-east-1"
+    }
+    sh "aws cloudformation update-stack --template-body file://template.json --stack-name moveStack --parameter ParameterKey=DesiredCapacity,ParameterValue=1 ParameterKey=InstanceType,ParameterValue=t2.micro ParameterKey=KeyName,ParameterValue=saini ParameterKey=MaxSize,ParameterValue=1"
  
   stage 'Docker build'
     docker.withRegistry('https://088072595747.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:ecr-credentials') {
