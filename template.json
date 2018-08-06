@@ -5,14 +5,6 @@
       "Type":"AWS::EC2::KeyPair::KeyName",
       "Description":"Name of an existing EC2 KeyPair to enable SSH access to the ECS instances."
     },
-    "VpcId":{
-      "Type":"AWS::EC2::VPC::Id",
-      "Description":"Select a VPC that allows instances to access the Internet."
-    },
-    "SubnetId":{
-      "Type":"List<AWS::EC2::Subnet::Id>",
-      "Description":"Select at two subnets in your selected VPC."
-    },
     "DesiredCapacity":{
       "Type":"Number",
       "Default":"1",
