@@ -9,7 +9,6 @@ node {
       sh "aws configure set default.region us-east-1"
     }
     def OUTPUT = sh "aws cloudformation update-stack --template-body file://template.json --stack-name moveStack --parameter ParameterKey=DesiredCapacity,ParameterValue=1 ParameterKey=InstanceType,ParameterValue=t2.micro ParameterKey=KeyName,ParameterValue=saini ParameterKey=MaxSize,ParameterValue=1"
-    echo "the output is '$OUTPUT'"
     if($OUTPUT =~ "No updates are to be performed.") {
       echo "Stack is already updated"
     }
