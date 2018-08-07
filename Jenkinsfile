@@ -12,6 +12,10 @@ node {
     def proc = ["/bin/sh", "-c", command].execute()
     proc.waitFor()
     echo "The exit value is : ${proc.exitValue()}"
+    if (${proc.exitValue()} != 0) {
+      echo "stack is already updated"
+      exit 0
+    }
  
   stage 'Docker build'
     docker.build('move-repo')
