@@ -8,7 +8,11 @@ node {
       sh "aws configure set aws_secret_access_key ${env.AWS_SECRET_ACCESS_KEY}"
       sh "aws configure set default.region us-east-1"
     }
-    sh "aws cloudformation update-stack --template-body file://template.json --stack-name moveStack --parameter ParameterKey=DesiredCapacity,ParameterValue=1 ParameterKey=InstanceType,ParameterValue=t2.micro ParameterKey=KeyName,ParameterValue=saini ParameterKey=MaxSize,ParameterValue=1 --no-fail-on-empty-changeset"
+    OUTPUT = sh "aws cloudformation update-stack --template-body file://template.json --stack-name moveStack --parameter ParameterKey=DesiredCapacity,ParameterValue=1 ParameterKey=InstanceType,ParameterValue=t2.micro ParameterKey=KeyName,ParameterValue=saini ParameterKey=MaxSize,ParameterValue=1"
+    echo "the output is '$OUTPUT'"
+    if($OUTPUT =~ "No updates are to be performed.") {
+      echo "Stack is already updated"
+    }
  
   stage 'Docker build'
     docker.withRegistry('https://088072595747.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:ecr-credentials') {
