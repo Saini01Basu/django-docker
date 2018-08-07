@@ -11,8 +11,9 @@ node {
     def command = "aws cloudformation update-stack --template-body file://template.json --stack-name moveStack --parameter ParameterKey=DesiredCapacity,ParameterValue=1 ParameterKey=InstanceType,ParameterValue=t2.micro ParameterKey=KeyName,ParameterValue=saini ParameterKey=MaxSize,ParameterValue=1"
     def proc = ["/bin/sh", "-c", command].execute()
     proc.waitFor()
-    echo "The exit value is : ${proc.exitValue()}"
-    if (${proc.exitValue()} != 0) {
+    def exitVal = ${proc.exitValue()}
+    echo "The exit value is : '$exitVal'"
+    if (exitVal != 0) {
       echo "stack is already updated"
       exit 0
     }
