@@ -27,7 +27,7 @@ node {
     docker.build('move-repo')
  
   stage 'Docker push'
-    docker.withRegistry('https://088072595747.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:${env.aws_credentials}') {
+    docker.withRegistry('https://088072595747.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:default_cred') {
         docker.image('move-repo').push('latest')
     }
 
