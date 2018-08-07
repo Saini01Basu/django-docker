@@ -15,6 +15,7 @@ node {
     script {
       if (proc.exitValue() != 0) {
         echo "stack is already updated"
+        proc.destroy()
       }
     }
  
