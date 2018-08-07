@@ -21,7 +21,6 @@ node {
       }
     }
     catch (Exception e) {
-      exit 0
     }
   
   stage 'Docker build'
