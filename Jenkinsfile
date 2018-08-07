@@ -14,9 +14,7 @@ node {
     echo "The exit value is : ${proc.exitValue()}"
  
   stage 'Docker build'
-    docker.withRegistry('https://088072595747.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:default_cred') {
-        docker.build('move-repo')
-    }
+    docker.build('move-repo')
  
   stage 'Docker push'
     docker.withRegistry('https://088072595747.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:default_cred') {
