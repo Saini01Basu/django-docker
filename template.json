@@ -12,9 +12,9 @@
         "AllowedValues": "vpc-007fc05093485e7e6"
       },
       "SubnetId":{
-        "Type":"List<AWS::EC2::Subnet::Id>",
+        "Type":"CommaDelimitedList",
         "Description":"Select at two subnets in your selected VPC.",
-        "AllowedValues": "[subnet-0c995c77750f1a898, subnet-0156d2677c8e96a27]"
+        "AllowedValues": "subnet-0c995c77750f1a898, subnet-0156d2677c8e96a27"
       },
       "DesiredCapacity":{
         "Type":"Number",
