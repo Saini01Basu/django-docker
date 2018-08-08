@@ -32,5 +32,7 @@ node {
     }
 
   stage 'Run Service'
-    sh "aws ecs run-task --cluster move-stack-ECSCluster-LE7VTTHHRT0H --task-definition move-stackmove-ecs --count 1 --launch-type EC2"
+    docker.withRegistry('https://088072595747.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:default_cred') {
+      sh "aws ecs run-task --cluster move-stack-ECSCluster-LE7VTTHHRT0H --task-definition move-stackmove-ecs --count 1 --launch-type EC2"
+    }
 }
