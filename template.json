@@ -156,7 +156,7 @@
               "Name":"move-container",
               "Cpu":"10",
               "Essential":"true",
-              "Image":"move-repo:latest",
+              "Image":"088072595747.dkr.ecr.us-east-1.amazonaws.com/move-repo:latest",
               "Memory":"300",
               "LogConfiguration":{
                 "LogDriver":"awslogs",
