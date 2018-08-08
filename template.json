@@ -29,6 +29,11 @@
         "Type":"String",
         "Default":"t2.micro",
         "ConstraintDescription":"EC2"
+      },
+      "ecsRole": {
+        "Description":"ecs instance role",
+        "Type":"String",
+        "Default":"ecsInstanceRole"
       }
     },
     "Mappings":{
@@ -73,52 +78,6 @@
           "FromPort":"8000",
           "ToPort":"8000",
           "CidrIp":"0.0.0.0/0"
-        }
-      },
-      "EC2Role":{
-        "Type":"AWS::IAM::Role",
-        "Properties":{
-          "AssumeRolePolicyDocument":{
-            "Statement":[
-              {
-                "Effect":"Allow",
-                "Principal":{
-                  "Service":[
-                    "ec2.amazonaws.com"
-                  ]
-                },
-                "Action":[
-                  "sts:AssumeRole"
-                ]
-              }
-            ]
-          },
-          "Path":"/",
-          "Policies":[
-            {
-              "PolicyName":"ecs-service",
-              "PolicyDocument":{
-                "Statement":[
-                  {
-                    "Effect":"Allow",
-                    "Action":[
-                      "ecs:CreateCluster",
-                      "ecs:DeregisterContainerInstance",
-                      "ecs:DiscoverPollEndpoint",
-                      "ecs:Poll",
-                      "ecs:RegisterContainerInstance",
-                      "ecs:StartTelemetrySession",
-                      "ecr:GetAuthorizationToken",
-                      "ecs:Submit*",
-                      "logs:CreateLogStream",
-                      "logs:PutLogEvents"
-                    ],
-                    "Resource":"*"
-                  }
-                ]
-              }
-            }
-          ]
         }
       },
       "CloudwatchLogsGroup":{
@@ -186,7 +145,7 @@
             "Path":"/",
             "Roles":[
               {
-                "Ref":"EC2Role"
+                "Ref":"ecsRole"
               }
             ]
           }
