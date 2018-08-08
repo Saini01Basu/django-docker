@@ -108,6 +108,7 @@
                       "ecs:Poll",
                       "ecs:RegisterContainerInstance",
                       "ecs:StartTelemetrySession",
+                      "ecr:GetAuthorizationToken",
                       "ecs:Submit*",
                       "logs:CreateLogStream",
                       "logs:PutLogEvents"
