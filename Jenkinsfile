@@ -32,5 +32,5 @@ node {
     }
 
   stage 'Run Service'
-    sh "aws ecs create-service --service-name move-service --cluster moveStack-ECSCluster-1SOEI3DPIYM9F --task-definition moveStackmove-ecs --desired-count 1 --launch-type EC2"
+    sh "aws ecs run-task --cluster moveStack-ECSCluster-1SOEI3DPIYM9F --task-definition moveStackmove-ecs --count 1 --launch-type EC2"
 }
