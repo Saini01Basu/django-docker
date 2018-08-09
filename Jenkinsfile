@@ -1,9 +1,9 @@
 node {
-  import groovy.json.JsonSlurper
   stage 'Checkout'
     git 'https://github.com/Saini01Basu/django-docker.git'
   
   stage 'Cloudformation'
+    import groovy.json.JsonSlurper
     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'default_cred', variable: 'AWS_ACCESS_KEY_ID']]) {
       sh "aws configure set aws_access_key_id ${env.AWS_ACCESS_KEY_ID}"
       sh "aws configure set aws_secret_access_key ${env.AWS_SECRET_ACCESS_KEY}"
