@@ -26,7 +26,11 @@ node {
       script: 'aws cloudformation describe-stacks --stack-name move-stackv2',
       returnStdout: true
     ).trim()
-    echo "The attributes are : ${des_command}"
+    def jsonSlurper = new JsonSlurper()
+    def object = jsonSlurper.parseText(${des_command})
+    assert object instanceof Map
+    assert object.Outputs instanceof List
+    echo object.Outputs
   
   stage 'Docker build'
     docker.build('move-repo')
