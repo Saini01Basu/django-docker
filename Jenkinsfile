@@ -29,11 +29,9 @@ node {
       returnStdout: true
     ).trim()
     echo des_command
-    script{
-      def parser = new JsonSlurper().setType(JsonParserType.LAX)
-      def object = parser.parseText('{"person":{"name":"Guillaume","age":33,"pets":["dog","cat"]}}')
-      echo object
-    }
+    def parser = new JsonSlurper()
+    def object = parser.parseText '''{"person":{"name":"Guillaume","age":33,"pets":["dog","cat"]}}'''
+    echo object
   
   stage 'Docker build'
     docker.build('move-repo')
