@@ -1,3 +1,4 @@
+import groovy.json.JsonSlurper
 node {
   stage 'Checkout'
     git 'https://github.com/Saini01Basu/django-docker.git'
@@ -26,7 +27,9 @@ node {
       script: 'aws cloudformation describe-stacks --stack-name move-stackv2',
       returnStdout: true
     ).trim()
-    echo des_command.getAt(0)
+    def jsonSlurper = new JsonSlurper()
+    def object = jsonSlurper.parseText(des_command)
+    echo object
   
   stage 'Docker build'
     docker.build('move-repo')
