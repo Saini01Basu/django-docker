@@ -30,5 +30,18 @@ node {
     ).trim()
     def js = new JsonSlurper()
     def obj = js.parseText(des_command)
-    echo obj
+    echo obj.Stacks[0].Outputs[0].OutputValue
+  
+  stage 'Docker build'
+    docker.build('move-repo')
+ 
+  stage 'Docker push'
+    docker.withRegistry('https://088072595747.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:default_cred') {
+        docker.image('move-repo').push('latest')
+    }
+
+  stage 'Run Service'
+    docker.withRegistry('https://088072595747.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:default_cred') {
+      sh "aws ecs run-task --cluster move-stackv2-ECSCluster-1UF7PBH1DGMRB --task-definition move-stackv2move-ecs:1 --count 1 --launch-type EC2"
+    }
 }
