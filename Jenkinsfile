@@ -27,7 +27,7 @@ node {
       returnStdout: true
     ).trim()
     script {
-      echo des_command
+      echo des_command.Stacks[0].Outputs
     }
   
   stage 'Docker build'
