@@ -27,9 +27,7 @@ node {
       returnStdout: true
     ).trim()
     script {
-      assert des_command instanceof Map
-      assert object.Outputs instanceof List
-      echo object.Outputs
+      echo des_command.Outputs[0]
     }
   
   stage 'Docker build'
