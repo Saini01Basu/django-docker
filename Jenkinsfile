@@ -30,3 +30,4 @@ node {
     ).trim()
     def js = new JsonSlurper()
     def object = js.parseText('{"person":{"name":"Guillaume","age":33,"pets":["dog","cat"]}}')
+}
