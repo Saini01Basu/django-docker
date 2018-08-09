@@ -28,7 +28,7 @@ node {
       returnStdout: true
     ).trim()
     def jsonSlurper = new JsonSlurper()
-    def object = jsonSlurper.parseText(${des_command})
+    def object = jsonSlurper.parseText('${des_command}')
     assert object instanceof Map
     assert object.Outputs instanceof List
     echo object.Outputs
