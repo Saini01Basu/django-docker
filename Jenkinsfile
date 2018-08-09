@@ -23,7 +23,7 @@ node {
     catch (Exception e) {
     }
     def des_command = sh (
-      script: "aws cloudformation describe-stacks --stack-name move-stackv2"
+      script: 'aws cloudformation describe-stacks --stack-name move-stackv2',
       returnStdout: true
     ).trim()
     echo "The attributes are : ${des_command}"
