@@ -1,4 +1,5 @@
 import groovy.json.JsonSlurper
+def CLUSTER
 node {
   stage 'Checkout'
     git 'https://github.com/Saini01Basu/django-docker.git'
@@ -30,7 +31,7 @@ node {
     script {
       def js = new JsonSlurper()
       def obj = js.parseText(des_command)
-      def cluster = obj.Stacks[0].Outputs[0].OutputValue
+      CLUSTER = obj.Stacks[0].Outputs[0].OutputValue
     }
   
   stage 'Docker build'
@@ -43,6 +44,6 @@ node {
 
   stage 'Run Service'
     docker.withRegistry('https://088072595747.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:default_cred') {
-      sh "aws ecs run-task --cluster "+ cluster +" --task-definition move-stackv2move-ecs:1 --count 1 --launch-type EC2"
+      sh "aws ecs run-task --cluster "+ CLUSTER +" --task-definition move-stackv2move-ecs:1 --count 1 --launch-type EC2"
     }
 }
