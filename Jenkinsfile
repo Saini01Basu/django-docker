@@ -22,7 +22,7 @@ node {
     }
     catch (Exception e) {
     }
-    def des_command = "sh aws cloudformation describe-stacks --stack-name move-stackv2 --no-paginate"
+    def des_command = "aws cloudformation describe-stacks --stack-name move-stackv2 --no-paginate"
     def stack_atrr = ["/bin/sh", "-c", des_command].execute()
     echo "The attributes are : ${stack_atrr}"
   
