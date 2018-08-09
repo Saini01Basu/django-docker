@@ -22,6 +22,8 @@ node {
     }
     catch (Exception e) {
     }
+    def stack_attr = "sh aws stack-create-complete --stack-name move-stackv2"
+    echo "the values are : ${stack_atrr}"
   
   stage 'Docker build'
     docker.build('move-repo')
