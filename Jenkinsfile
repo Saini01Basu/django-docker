@@ -28,7 +28,7 @@ node {
       script: 'aws cloudformation describe-stacks --stack-name move-stackv2',
       returnStdout: true
     ).trim()
-    echo des_command
     def js = new JsonSlurper()
-    def object = js.parseText(des_command)
+    def obj = js.parseText(des_command)
+    echo obj
 }
