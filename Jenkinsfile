@@ -22,8 +22,9 @@ node {
     }
     catch (Exception e) {
     }
-    def stack_attr = "sh aws cloudformation describe-stacks --stack-name move-stackv2 --no-paginate"
-    echo "The attributes are : 'stack_atrr'"
+    def des_command = "sh aws cloudformation describe-stacks --stack-name move-stackv2 --no-paginate"
+    def stack_atrr = ["/bin/sh", "-c", des_command].execute()
+    echo "The attributes are : ${stack_atrr}"
   
   stage 'Docker build'
     docker.build('move-repo')
