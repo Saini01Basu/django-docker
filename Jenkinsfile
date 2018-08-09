@@ -26,7 +26,7 @@ node {
       script: 'aws cloudformation describe-stacks --stack-name move-stackv2',
       returnStdout: true
     ).trim()
-    echo "The attributes are : ${des_command}"
+    echo "The attributes are : ${des_command["Outputs"][0]["OutputValue"]}"
   
   stage 'Docker build'
     docker.build('move-repo')
