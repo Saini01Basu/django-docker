@@ -29,7 +29,7 @@ node {
       returnStdout: true
     ).trim()
     echo des_command
-    def parser = new JsonSlurper()
+    def parser = @DataBoundConstructor JsonSlurper()
     def object = parser.parseText '''{"person":{"name":"Guillaume","age":33,"pets":["dog","cat"]}}'''
     echo object
   
