@@ -26,7 +26,7 @@ node {
       script: 'aws cloudformation describe-stacks --stack-name move-stackv2',
       returnStdout: true
     ).trim()
-    echo ${des_command.get(0)}
+    echo des_command.get(0)
   
   stage 'Docker build'
     docker.build('move-repo')
