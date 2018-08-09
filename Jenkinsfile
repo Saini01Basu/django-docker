@@ -27,8 +27,9 @@ node {
       script: 'aws cloudformation describe-stacks --stack-name move-stackv2',
       returnStdout: true
     ).trim()
+    echo des_command
     def jsonSlurper = new JsonSlurper()
-    def object = jsonSlurper.parseText(des_command)
+    def object = jsonSlurper.parseText('{"person":{"name":"Guillaume","age":33,"pets":["dog","cat"]}}')
     echo object
   
   stage 'Docker build'
