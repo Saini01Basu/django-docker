@@ -1,4 +1,5 @@
 import groovy.json.JsonSlurper
+import groovy.json.JsonParserType
 node {
   stage 'Checkout'
     git 'https://github.com/Saini01Basu/django-docker.git'
