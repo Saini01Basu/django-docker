@@ -1,4 +1,3 @@
-import groovy.json.JsonSlurper
 node {
   stage 'Checkout'
     git 'https://github.com/Saini01Basu/django-docker.git'
@@ -27,9 +26,7 @@ node {
       script: 'aws cloudformation describe-stacks --stack-name move-stackv2',
       returnStdout: true
     ).trim()
-    def jsonSlurper = new JsonSlurper()
-    def object = jsonSlurper.parseText('${des_command}')
-    assert object instanceof Map
+    assert ${des_command} instanceof Map
     assert object.Outputs instanceof List
     echo object.Outputs
   
