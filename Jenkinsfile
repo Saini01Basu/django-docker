@@ -26,9 +26,11 @@ node {
       script: 'aws cloudformation describe-stacks --stack-name move-stackv2',
       returnStdout: true
     ).trim()
-    assert ${des_command} instanceof Map
-    assert object.Outputs instanceof List
-    echo object.Outputs
+    script {
+      assert des_command instanceof Map
+      assert object.Outputs instanceof List
+      echo object.Outputs
+    }
   
   stage 'Docker build'
     docker.build('move-repo')
