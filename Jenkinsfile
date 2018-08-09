@@ -29,7 +29,7 @@ node {
       returnStdout: true
     ).trim()
     echo des_command
-    def parser = new JsonSlurper().setType(JsonParserType.INDEX_OVERLAY)
+    def parser = new JsonSlurper().setType(JsonParserType.LAX)
     def object = parser.parseText('{"person":{"name":"Guillaume","age":33,"pets":["dog","cat"]}}')
     echo object
   
