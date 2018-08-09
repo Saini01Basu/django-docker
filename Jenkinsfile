@@ -28,8 +28,8 @@ node {
       returnStdout: true
     ).trim()
     echo des_command
-    def jsonSlurper = new JsonSlurper()
-    def object = jsonSlurper.parseText('{"person":{"name":"Guillaume","age":33,"pets":["dog","cat"]}}')
+    def parser = new JsonSlurper().setType(JsonParserType.INDEX_OVERLAY)
+    def object = parser.parseText('{"person":{"name":"Guillaume","age":33,"pets":["dog","cat"]}}')
     echo object
   
   stage 'Docker build'
